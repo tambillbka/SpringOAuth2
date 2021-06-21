@@ -11,4 +11,11 @@ public interface CustomUserRepository {
      * @return {@link User}
      */
     User findByUsername(String username);
+
+    /**
+     * Check exist user in database
+     * @param username String
+     * @return boolean - checked value
+     */
+    boolean existByUsernameOrEmail(String username);
 }

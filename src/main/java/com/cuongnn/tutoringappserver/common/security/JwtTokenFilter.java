@@ -1,6 +1,7 @@
 package com.cuongnn.tutoringappserver.common.security;
 
 import com.cuongnn.tutoringappserver.common.exception.ServiceStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,14 +21,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest httpServletRequest,
-            HttpServletResponse httpServletResponse,
-            FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String token = jwtTokenProvider.resolveToken(httpServletRequest);
         try {
             if (Objects.nonNull(token) && jwtTokenProvider.validateToken(token)) {
-                SecurityContextHolder.getContext().setAuthentication(jwtTokenProvider.getAuthentication(token));
+                Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (ServiceStatus ex) {
             SecurityContextHolder.clearContext();

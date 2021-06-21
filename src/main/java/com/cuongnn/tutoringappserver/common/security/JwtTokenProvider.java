@@ -8,7 +8,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,16 +26,12 @@ import java.util.stream.Collectors;
 import static com.cuongnn.tutoringappserver.common.utils.Constants.AUTH;
 import static com.cuongnn.tutoringappserver.common.utils.Constants.AUTHORIZATION;
 import static com.cuongnn.tutoringappserver.common.utils.Constants.BEARER;
+import static com.cuongnn.tutoringappserver.common.utils.Constants.EXPIRE_LENGTH;
 import static com.cuongnn.tutoringappserver.common.utils.Constants.INVALID_TOKEN;
+import static com.cuongnn.tutoringappserver.common.utils.Constants.SECRET_KEY;
 
 @Component
 public class JwtTokenProvider {
-
-    @Value("${security.encode.salt}")
-    private static String secretKey;
-
-    @Value("${security.token.expire-length}")
-    private static long expireLength;
 
     private final CustomUserDetail userDetail;
 
@@ -47,7 +42,7 @@ public class JwtTokenProvider {
 
     @PostConstruct
     private void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+        SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
     }
 
     public String createToken(String username, List<Role> roles) {
@@ -57,13 +52,13 @@ public class JwtTokenProvider {
                 .collect(Collectors.toList()));
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + expireLength);
+        Date validity = new Date(now.getTime() + EXPIRE_LENGTH);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
 
@@ -73,7 +68,7 @@ public class JwtTokenProvider {
     }
 
     public String getUserName(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) {
@@ -84,7 +79,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token);
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             throw new ServiceStatus(INVALID_TOKEN, HttpStatus.INTERNAL_SERVER_ERROR);

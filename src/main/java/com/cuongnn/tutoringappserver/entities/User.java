@@ -18,5 +18,5 @@ public class User extends BaseEntity {
     private String username;
     private String email;
     private String password;
-    private Set<Role> role;
+    private Set<Role> roles;
 }

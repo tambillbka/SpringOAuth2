@@ -15,6 +15,7 @@ public class Constants {
     public static final String BEARER = "Bearer ";
 
     //E
+    public static long EXPIRE_LENGTH = 86400000;
     public static final String ERROR_PATH = "/error";
 
     //G
@@ -25,6 +26,7 @@ public class Constants {
 
     //I
     public static final String INVALID_TOKEN = "Expired or invalid JWT token";
+    public static final String INVALID_USERNAME_PASSWORD = "Invalid username/password supplied!";
 
     //M
     public static final String META_DATA_DESCRIPTION = "Use the `admin-admin` or `client-client` users to test the authorization filters. "
@@ -36,4 +38,8 @@ public class Constants {
     //U
     public static final String USER_TAG = "users";
     public static final String USER_TAG_DESCRIPTION = "Operations about users";
+    public static final String USERNAME_OR_EMAIL_EXIST = "Username or Email is exist!";
+
+    //S
+    public static String SECRET_KEY = "j12W!apGjHKLtO89*";
 }
