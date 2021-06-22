@@ -9,7 +9,7 @@ public interface UserService {
      * @param password String
      * @return {@link LoginResponse}
      */
-    LoginResponse login(String username, String password);
+    LoginResponse authenticateToken(String username, String password);
 
     /**
      * @param request {@link SignupRequest}

@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginResponse login(String username, String password) {
+    public LoginResponse authenticateToken(String username, String password) {
         username = Strings.refactor(username);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

@@ -17,6 +17,7 @@ public class Constants {
     //E
     public static long EXPIRE_LENGTH = 86400000;
     public static final String ERROR_PATH = "/error";
+    public static final String ENTRY_POINT_LOG_ERR = "Responding with unauthorized error, Message - {}";
 
     //G
     public static final String GLOBAL = "global";

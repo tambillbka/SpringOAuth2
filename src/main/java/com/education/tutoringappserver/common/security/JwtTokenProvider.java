@@ -6,7 +6,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -64,7 +63,7 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetail.loadUserByUsername(getUserName(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, Strings.EMPTY, userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
     public String getUserName(String token) {

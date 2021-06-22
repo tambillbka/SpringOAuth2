@@ -13,9 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/auth")
 public class AuthenticationController {
 
     private final UserService userService;
@@ -25,17 +27,17 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/authentication/login")
+    @PostMapping(value = "/token")
     @ApiOperation(value = "Login system api")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong!"),
             @ApiResponse(code = 422, message = "Invalid username/password supplied!")
     })
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        return new ResponseEntity<>(userService.login(request.getUsername(), request.getPassword()), HttpStatus.OK);
+    public ResponseEntity<LoginResponse> authenticateToken(@RequestBody LoginRequest request) {
+        return new ResponseEntity<>(userService.authenticateToken(request.getUsername(), request.getPassword()), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/authentication/signup")
+    @PostMapping(value = "/signup")
     @ApiOperation(value = "Signup - Create new user (No authentication)")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
