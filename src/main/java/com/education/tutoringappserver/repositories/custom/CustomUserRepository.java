@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver.repositories.custom;
+package com.education.tutoringappserver.repositories.custom;
 
-import com.cuongnn.tutoringappserver.entities.User;
+import com.education.tutoringappserver.entities.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver.common.security;
+package com.education.tutoringappserver.common.security;
 
-import com.cuongnn.tutoringappserver.entities.Role;
+import com.education.tutoringappserver.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

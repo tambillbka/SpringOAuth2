@@ -1,9 +1,9 @@
-package com.cuongnn.tutoringappserver.controllers;
+package com.education.tutoringappserver.controllers;
 
-import com.cuongnn.tutoringappserver.payloads.requests.LoginRequest;
-import com.cuongnn.tutoringappserver.payloads.requests.SignupRequest;
-import com.cuongnn.tutoringappserver.payloads.responses.LoginResponse;
-import com.cuongnn.tutoringappserver.services.service.UserService;
+import com.education.tutoringappserver.payloads.requests.LoginRequest;
+import com.education.tutoringappserver.payloads.requests.SignupRequest;
+import com.education.tutoringappserver.payloads.responses.LoginResponse;
+import com.education.tutoringappserver.services.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -42,7 +42,7 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
-            @ApiResponse(code = 422, message = "Username is already in use")})
+            @ApiResponse(code = 422, message = "Username is already in use!")})
     public ResponseEntity<LoginResponse> signUp(
             @ApiParam(value = "Signup Body data") @RequestBody SignupRequest request
     ) {

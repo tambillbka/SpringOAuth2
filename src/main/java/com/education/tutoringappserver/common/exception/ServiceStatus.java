@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.common.exception;
+package com.education.tutoringappserver.common.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

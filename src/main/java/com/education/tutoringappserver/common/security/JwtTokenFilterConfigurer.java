@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.common.security;
+package com.education.tutoringappserver.common.security;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

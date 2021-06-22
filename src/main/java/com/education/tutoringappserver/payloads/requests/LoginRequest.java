@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.payloads.requests;
+package com.education.tutoringappserver.payloads.requests;
 
 import io.swagger.annotations.ApiParam;
 import lombok.Data;

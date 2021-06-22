@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver;
+package com.education.tutoringappserver;
 
-import com.cuongnn.tutoringappserver.common.utils.Strings;
+import com.education.tutoringappserver.common.utils.Strings;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

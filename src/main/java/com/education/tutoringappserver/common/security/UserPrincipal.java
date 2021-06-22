@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver.common.security;
+package com.education.tutoringappserver.common.security;
 
-import com.cuongnn.tutoringappserver.entities.User;
+import com.education.tutoringappserver.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.common.utils;
+package com.education.tutoringappserver.common.utils;
 
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;

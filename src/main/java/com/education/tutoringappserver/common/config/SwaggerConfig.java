@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.common.config;
+package com.education.tutoringappserver.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,17 +20,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.cuongnn.tutoringappserver.common.utils.Constants.API_INFO_TITLE;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.AUTHORIZATION;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.AUTHORIZATION_SCOPE_DESCRIPTION;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.ERROR_PATH;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.GLOBAL;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.HEADER;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.MAIL_AUTHOR;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.META_DATA_DESCRIPTION;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.META_DATA_VERSION;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.USER_TAG;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.USER_TAG_DESCRIPTION;
+import static com.education.tutoringappserver.common.utils.Constants.API_INFO_TITLE;
+import static com.education.tutoringappserver.common.utils.Constants.AUTHORIZATION;
+import static com.education.tutoringappserver.common.utils.Constants.AUTHORIZATION_SCOPE_DESCRIPTION;
+import static com.education.tutoringappserver.common.utils.Constants.ERROR_PATH;
+import static com.education.tutoringappserver.common.utils.Constants.GLOBAL;
+import static com.education.tutoringappserver.common.utils.Constants.HEADER;
+import static com.education.tutoringappserver.common.utils.Constants.MAIL_AUTHOR;
+import static com.education.tutoringappserver.common.utils.Constants.META_DATA_DESCRIPTION;
+import static com.education.tutoringappserver.common.utils.Constants.META_DATA_VERSION;
+import static com.education.tutoringappserver.common.utils.Constants.USER_TAG;
+import static com.education.tutoringappserver.common.utils.Constants.USER_TAG_DESCRIPTION;
 import static com.google.common.base.Predicates.not;
 
 @Configuration

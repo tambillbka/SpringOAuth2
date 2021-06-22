@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.entities;
+package com.education.tutoringappserver.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 

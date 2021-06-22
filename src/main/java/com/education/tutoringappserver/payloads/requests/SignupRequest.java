@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver.payloads.requests;
+package com.education.tutoringappserver.payloads.requests;
 
-import com.cuongnn.tutoringappserver.entities.Role;
+import com.education.tutoringappserver.entities.Role;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

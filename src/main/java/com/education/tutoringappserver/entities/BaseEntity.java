@@ -1,4 +1,4 @@
-package com.cuongnn.tutoringappserver.entities;
+package com.education.tutoringappserver.entities;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;

@@ -1,7 +1,7 @@
-package com.cuongnn.tutoringappserver.services.service;
+package com.education.tutoringappserver.services.service;
 
-import com.cuongnn.tutoringappserver.payloads.requests.SignupRequest;
-import com.cuongnn.tutoringappserver.payloads.responses.LoginResponse;
+import com.education.tutoringappserver.payloads.requests.SignupRequest;
+import com.education.tutoringappserver.payloads.responses.LoginResponse;
 
 public interface UserService {
     /**

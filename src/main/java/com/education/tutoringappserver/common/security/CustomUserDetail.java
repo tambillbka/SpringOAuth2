@@ -1,8 +1,8 @@
-package com.cuongnn.tutoringappserver.common.security;
+package com.education.tutoringappserver.common.security;
 
-import com.cuongnn.tutoringappserver.common.utils.Strings;
-import com.cuongnn.tutoringappserver.entities.User;
-import com.cuongnn.tutoringappserver.repositories.repository.UserRepository;
+import com.education.tutoringappserver.common.utils.Strings;
+import com.education.tutoringappserver.entities.User;
+import com.education.tutoringappserver.repositories.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

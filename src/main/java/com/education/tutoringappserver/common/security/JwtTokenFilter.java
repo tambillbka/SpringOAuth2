@@ -1,6 +1,6 @@
-package com.cuongnn.tutoringappserver.common.security;
+package com.education.tutoringappserver.common.security;
 
-import com.cuongnn.tutoringappserver.common.exception.ServiceStatus;
+import com.education.tutoringappserver.common.exception.ServiceStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

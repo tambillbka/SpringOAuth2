@@ -1,13 +1,14 @@
-package com.cuongnn.tutoringappserver.services.serviceImpl;
+package com.education.tutoringappserver.services.serviceImpl;
 
-import com.cuongnn.tutoringappserver.common.exception.ServiceStatus;
-import com.cuongnn.tutoringappserver.common.security.JwtTokenProvider;
-import com.cuongnn.tutoringappserver.common.utils.Strings;
-import com.cuongnn.tutoringappserver.entities.User;
-import com.cuongnn.tutoringappserver.payloads.requests.SignupRequest;
-import com.cuongnn.tutoringappserver.payloads.responses.LoginResponse;
-import com.cuongnn.tutoringappserver.repositories.repository.UserRepository;
-import com.cuongnn.tutoringappserver.services.service.UserService;
+import com.education.tutoringappserver.common.exception.ServiceStatus;
+import com.education.tutoringappserver.common.security.JwtTokenProvider;
+import com.education.tutoringappserver.common.utils.Strings;
+import com.education.tutoringappserver.entities.User;
+import com.education.tutoringappserver.payloads.requests.SignupRequest;
+import com.education.tutoringappserver.payloads.responses.LoginResponse;
+import com.education.tutoringappserver.repositories.repository.UserRepository;
+import com.education.tutoringappserver.services.service.UserService;
+import com.education.tutoringappserver.common.utils.Constants;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import static com.cuongnn.tutoringappserver.common.utils.Constants.INVALID_USERNAME_PASSWORD;
-import static com.cuongnn.tutoringappserver.common.utils.Constants.USERNAME_OR_EMAIL_EXIST;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,14 +47,14 @@ public class UserServiceImpl implements UserService {
             return new LoginResponse(jwtTokenProvider.createToken(username,
                     Lists.newArrayList(userRepository.findByUsername(username).getRoles())));
         } catch (AuthenticationException e) {
-            throw new ServiceStatus(INVALID_USERNAME_PASSWORD, HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new ServiceStatus(Constants.INVALID_USERNAME_PASSWORD, HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
     @Override
     public LoginResponse signUp(SignupRequest request) {
         if (userRepository.existByUsernameOrEmail(Strings.refactor(request.getUsername()))) {
-            throw new ServiceStatus(USERNAME_OR_EMAIL_EXIST, HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new ServiceStatus(Constants.USERNAME_OR_EMAIL_EXIST, HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
         User user = new User();

@@ -1,7 +1,7 @@
-package com.cuongnn.tutoringappserver.repositories.customImpl;
+package com.education.tutoringappserver.repositories.customImpl;
 
-import com.cuongnn.tutoringappserver.entities.User;
-import com.cuongnn.tutoringappserver.repositories.custom.CustomUserRepository;
+import com.education.tutoringappserver.entities.User;
+import com.education.tutoringappserver.repositories.custom.CustomUserRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
