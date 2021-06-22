@@ -1,0 +1,12 @@
+## application.yml
+## ---------------
+
+## Active profile ---------------
+spring:
+  profiles:
+    active: local
+
+## Base API Context --------------
+server:
+  servlet:
+    context-path: /api
