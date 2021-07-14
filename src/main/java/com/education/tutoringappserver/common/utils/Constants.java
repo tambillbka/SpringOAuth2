@@ -10,9 +10,12 @@ public class Constants {
     public static final String AUTHORIZATION_SCOPE_DESCRIPTION = "accessEverything";
     public static final String API_INFO_TITLE = "JSON Web Token Authentication API";
     public static final String AUTH = "auth";
+    public static final String ALL = "*";
+    public static final String ALL_PATTERN = "/**";
 
     //B
     public static final String BEARER = "Bearer ";
+    public static final String DELETE = "DELETE";
 
     //E
     public static long EXPIRE_LENGTH = 86400000;
@@ -21,9 +24,11 @@ public class Constants {
 
     //G
     public static final String GLOBAL = "global";
+    public static final String GET = "GET";
 
     //H
     public static final String HEADER = "header";
+    public static final String HEAD = "HEAD";
 
     //I
     public static final String INVALID_TOKEN = "Expired or invalid JWT token";
@@ -35,11 +40,20 @@ public class Constants {
             .concat("you should click on the right top button `Authorize` and introduce it with the prefix \"Bearer \".");
     public static final String META_DATA_VERSION = "1.0.0";
     public static final String MAIL_AUTHOR = "phamngoctam.bka@gmail.com";
+    public static final long MAX_AGE_SECS = 3600;
 
     //U
     public static final String USER_TAG = "users";
     public static final String USER_TAG_DESCRIPTION = "Operations about users";
     public static final String USERNAME_OR_EMAIL_EXIST = "Username or Email is exist!";
+
+    //O
+    public static final String OPTIONS = "OPTIONS";
+
+    //P
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String PATCH = "PATCH";
 
     //S
     public static String SECRET_KEY = "j12W!apGjHKLtO89*";
