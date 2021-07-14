@@ -2,15 +2,16 @@ package com.education.tutoringappserver.services.serviceImpl;
 
 import com.education.tutoringappserver.common.exception.ServiceStatus;
 import com.education.tutoringappserver.common.security.JwtTokenProvider;
+import com.education.tutoringappserver.common.utils.Constants;
 import com.education.tutoringappserver.common.utils.Strings;
 import com.education.tutoringappserver.entities.User;
+import com.education.tutoringappserver.payloads.requests.LoginRequest;
 import com.education.tutoringappserver.payloads.requests.SignupRequest;
 import com.education.tutoringappserver.payloads.responses.LoginResponse;
 import com.education.tutoringappserver.repositories.repository.UserRepository;
 import com.education.tutoringappserver.services.service.UserService;
-import com.education.tutoringappserver.common.utils.Constants;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -29,21 +31,11 @@ public class UserServiceImpl implements UserService {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    private UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
     @Override
-    public LoginResponse authenticateToken(String username, String password) {
-        username = Strings.refactor(username);
+    public LoginResponse authenticateToken(LoginRequest request) {
+        String username = Strings.refactor(request.getUsername());
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, request.getPassword()));
             return new LoginResponse(jwtTokenProvider.createToken(username,
                     Lists.newArrayList(userRepository.findByUsername(username).getRoles())));
         } catch (AuthenticationException e) {
@@ -61,11 +53,10 @@ public class UserServiceImpl implements UserService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRoles(request.getRoles());
-        userRepository.save(user);
+        LoginResponse response = new LoginResponse(jwtTokenProvider.createToken(request.getUsername(),
+                Lists.newArrayList(request.getRoles())));
 
-        return new LoginResponse(
-                jwtTokenProvider.createToken(request.getUsername(),
-                        Lists.newArrayList(request.getRoles()))
-        );
+        userRepository.save(user);
+        return response;
     }
 }
