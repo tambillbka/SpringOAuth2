@@ -2,7 +2,6 @@ package com.education.tutoringappserver.controllers;
 
 import com.education.tutoringappserver.payloads.requests.LoginRequest;
 import com.education.tutoringappserver.payloads.requests.SignupRequest;
-import com.education.tutoringappserver.payloads.responses.LoginResponse;
 import com.education.tutoringappserver.services.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -33,8 +32,8 @@ public class AuthenticationController {
             @ApiResponse(code = 400, message = "Something went wrong!"),
             @ApiResponse(code = 422, message = "Invalid username/password supplied!")
     })
-    public ResponseEntity<LoginResponse> authenticateToken(@RequestBody LoginRequest request) {
-        return new ResponseEntity<>(userService.authenticateToken(request.getUsername(), request.getPassword()), HttpStatus.OK);
+    public ResponseEntity<?> authenticateToken(@RequestBody LoginRequest request) {
+        return new ResponseEntity<>(userService.authenticateToken(request), HttpStatus.OK);
     }
 
     @PostMapping(value = "/signup")
@@ -43,7 +42,7 @@ public class AuthenticationController {
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 422, message = "Username is already in use!")})
-    public ResponseEntity<LoginResponse> signUp(
+    public ResponseEntity<?> signUp(
             @ApiParam(value = "Signup Body data") @RequestBody SignupRequest request
     ) {
         return new ResponseEntity<>(userService.signUp(request), HttpStatus.OK);
