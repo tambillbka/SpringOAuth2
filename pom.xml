@@ -28,13 +28,13 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!-- ************************** -->
-
-        <!-- Library for Data Mongo -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+        <!-- ************************** -->
+
+        <!-- Library for Data Mongo -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
