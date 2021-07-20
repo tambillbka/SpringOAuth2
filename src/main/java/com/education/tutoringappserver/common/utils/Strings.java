@@ -9,7 +9,7 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Strings {
 
-    private static final String EMPTY = "";
+    public static final String EMPTY = "";
 
     public static String refactor(String inVal) {
         return Optional.ofNullable(inVal).map(Strings::trimAllWhiteSpace).orElse(EMPTY);

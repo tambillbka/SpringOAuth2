@@ -1,5 +1,6 @@
 package com.education.tutoringappserver.repositories.customImpl;
 
+import com.education.tutoringappserver.common.utils.Strings;
 import com.education.tutoringappserver.entities.User;
 import com.education.tutoringappserver.repositories.custom.CustomUserRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -39,5 +40,14 @@ public class CustomUserRepositoryImpl implements CustomUserRepository {
                 Criteria.where(EMAIL).is(username));
         query.addCriteria(criteria);
         return mongoTemplate.exists(query, User.class);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        Query query = new Query();
+        Criteria criteria = new Criteria();
+        criteria.and(EMAIL).is(Strings.refactor(email));
+        query.addCriteria(criteria);
+        return mongoTemplate.findOne(query, User.class);
     }
 }
