@@ -1,5 +1,6 @@
 package com.education.tutoringappserver.common.security;
 
+import com.education.tutoringappserver.common.config.AppProperties;
 import com.education.tutoringappserver.common.exception.ServiceStatus;
 import com.education.tutoringappserver.common.utils.Constants;
 import com.education.tutoringappserver.entities.Role;
@@ -27,10 +28,12 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     private final CustomUserDetail userDetail;
+    private final AppProperties appProperties;
 
     @Autowired
-    public JwtTokenProvider(CustomUserDetail userDetail) {
+    public JwtTokenProvider(CustomUserDetail userDetail, AppProperties appProperties) {
         this.userDetail = userDetail;
+        this.appProperties = appProperties;
     }
 
     @PostConstruct
@@ -52,6 +55,20 @@ public class JwtTokenProvider {
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS512, Constants.SECRET_KEY)
+                .compact();
+    }
+
+    public String createToken(Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+
+        return Jwts.builder()
+                .setSubject(userPrincipal.getId())
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
     }
 

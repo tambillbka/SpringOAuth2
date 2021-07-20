@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author phamngoctam.bka@gmail.com
+ * Custom UserDetailsService {@link UserDetailsService}
+ * Class for Authentication provider
+ */
 @Service
 public class CustomUserDetail implements UserDetailsService {
 

@@ -2,18 +2,18 @@ package com.education.tutoringappserver.services.service;
 
 import com.education.tutoringappserver.payloads.requests.LoginRequest;
 import com.education.tutoringappserver.payloads.requests.SignupRequest;
-import com.education.tutoringappserver.payloads.responses.LoginResponse;
+import com.education.tutoringappserver.payloads.responses.TokenResponse;
 
 public interface UserService {
     /**
      * @param request {@link LoginRequest}
-     * @return {@link LoginResponse}
+     * @return {@link TokenResponse}
      */
-    LoginResponse authenticateToken(LoginRequest request);
+    TokenResponse authenticateToken(LoginRequest request);
 
     /**
      * @param request {@link SignupRequest}
-     * @return {@link LoginResponse}
+     * @return {@link TokenResponse}
      */
-    LoginResponse signUp(SignupRequest request);
+    TokenResponse signUp(SignupRequest request);
 }
