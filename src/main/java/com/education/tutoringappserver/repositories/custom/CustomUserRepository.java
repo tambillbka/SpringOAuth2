@@ -18,4 +18,11 @@ public interface CustomUserRepository {
      * @return boolean - checked value
      */
     boolean existByUsernameOrEmail(String username);
+
+    /**
+     * Find user by email
+     * @param email String
+     * @return {@link User}
+     */
+    User findByEmail(String email);
 }

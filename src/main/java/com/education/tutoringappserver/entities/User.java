@@ -39,4 +39,6 @@ public class User extends BaseEntity {
     private AuthProvider provider;
 
     private String providerId;
+
+    private String name;
 }

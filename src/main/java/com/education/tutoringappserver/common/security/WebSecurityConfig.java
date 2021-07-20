@@ -1,5 +1,9 @@
 package com.education.tutoringappserver.common.security;
 
+import com.education.tutoringappserver.common.security.oauth2.CustomOAuth2UserService;
+import com.education.tutoringappserver.common.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.education.tutoringappserver.common.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.education.tutoringappserver.common.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.education.tutoringappserver.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,15 +25,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // OAuth1
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetail customUserDetail;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+    //OAuth2
+    private final CustomOAuth2UserService oAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
     @Autowired
-    public WebSecurityConfig(JwtTokenProvider jwtTokenProvider, CustomUserDetail customUserDetail, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+    public WebSecurityConfig(JwtTokenProvider jwtTokenProvider, CustomUserDetail customUserDetail, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, CustomOAuth2UserService oAuth2UserService, OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler, OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler, HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.customUserDetail = customUserDetail;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.oAuth2UserService = oAuth2UserService;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
+    }
+
+    @Bean
+    public HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 
     @Bean
@@ -51,21 +69,57 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Disable CSRF (cross site request forgery)
-        http.csrf()
+        // Disable CSRF (cross site request forgery) && Simple config
+        http.cors()
+                .and()
+                .csrf()
                 .disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 // No session will be created or used by spring security
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin()
+                .disable()
+                .httpBasic()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/",
+                        "/error",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                .permitAll();
 
-        // Entry points
+        // Entry points permit && authenticated
         http.authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority(Role.ROLE_ADMIN.name())
+                .antMatchers("/auth/**", "/oauth2/**")
+                .permitAll()
+                .antMatchers("/admin/**")
+                .hasAuthority(Role.ROLE_ADMIN.name())
                 .anyRequest().authenticated();
+
+        // OAuth2 Config
+        http.oauth2Login()
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorize")
+                .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())
+                .and()
+                .redirectionEndpoint()
+                .baseUri("/oauth2/callback/*")
+                .and()
+                .userInfoEndpoint()
+                .userService(oAuth2UserService)
+                .and()
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler);
 
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
