@@ -1,32 +1,54 @@
 package com.education.tutoringappserver.common.config;
 
 import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
-@Data
 @ConfigurationProperties(prefix = "app")
-@NoArgsConstructor
-@AllArgsConstructor
 public class AppProperties {
     private final Auth auth = new Auth();
     private final OAuth2 oAuth2 = new OAuth2();
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
+    public Auth getAuth() {
+        return auth;
+    }
+
+    public OAuth2 getOAuth2() {
+        return oAuth2;
+    }
+
     public static class Auth {
         private String tokenSecret;
         private long tokenExpirationMsec;
+
+        public String getTokenSecret() {
+            return tokenSecret;
+        }
+
+        public void setTokenSecret(String tokenSecret) {
+            this.tokenSecret = tokenSecret;
+        }
+
+        public long getTokenExpirationMsec() {
+            return tokenExpirationMsec;
+        }
+
+        public void setTokenExpirationMsec(long tokenExpirationMsec) {
+            this.tokenExpirationMsec = tokenExpirationMsec;
+        }
     }
 
-    @Data
-    @NoArgsConstructor
     public static final class OAuth2 {
         private List<String> authorizedRedirectUris = Lists.newArrayList();
+
+        public List<String> getAuthorizedRedirectUris() {
+            return authorizedRedirectUris;
+        }
+
+        public OAuth2 authorizedRedirectUris(List<String> authorizedRedirectUris) {
+            this.authorizedRedirectUris = authorizedRedirectUris;
+            return this;
+        }
     }
 }

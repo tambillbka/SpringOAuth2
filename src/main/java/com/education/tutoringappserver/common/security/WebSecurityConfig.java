@@ -22,7 +22,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // OAuth1
@@ -72,21 +76,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Disable CSRF (cross site request forgery) && Simple config
         http.cors()
                 .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
                 // No session will be created or used by spring security
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .csrf()
+                    .disable()
                 .formLogin()
-                .disable()
+                    .disable()
                 .httpBasic()
-                .disable()
+                    .disable()
+                .exceptionHandling()
+                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
                 .authorizeRequests()
-                .antMatchers("/",
+                    .antMatchers("/",
                         "/error",
                         "/favicon.ico",
                         "/**/*.png",
@@ -101,22 +105,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Entry points permit && authenticated
         http.authorizeRequests()
                 .antMatchers("/auth/**", "/oauth2/**")
-                .permitAll()
+                    .permitAll()
                 .antMatchers("/admin/**")
-                .hasAuthority(Role.ROLE_ADMIN.name())
+                    .hasAuthority(Role.ROLE_ADMIN.name())
                 .anyRequest().authenticated();
 
         // OAuth2 Config
         http.oauth2Login()
                 .authorizationEndpoint()
-                .baseUri("/oauth2/authorize")
+                    .baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())
                 .and()
                 .redirectionEndpoint()
-                .baseUri("/oauth2/callback/*")
+                    .baseUri("/oauth2/callback/*")
                 .and()
                 .userInfoEndpoint()
-                .userService(oAuth2UserService)
+                    .userService(oAuth2UserService)
                 .and()
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler);
